@@ -17,7 +17,7 @@ cabecalho = html.H1("Modelo SLI",className="bg-primary text-white p-2 mb-4")
 
 descricao = dcc.Markdown(
     '''
-    É apresentado o modelo exponenciald de crescimento populacional. No exercício a sugestão é que sejam consideradas taxas de variação por ano. Por exemplo, $$a=0.05 \\text{ ano}^{-1}$$ equivale a uma taxa de natalidade de 5% por ano.
+    É apresentado o modelo exponencial de crescimento populacional. No exercício a sugestão é que sejam consideradas taxas de variação por ano. Por exemplo, $$a=0.05 \\text{ ano}^{-1}$$ equivale a uma taxa de natalidade de 5% por ano.
 
 .
     ''', mathjax=True
