@@ -10,10 +10,10 @@ from textwrap import dedent
 import plotly.graph_objects as go
 
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUMEN, dbc.icons.FONT_AWESOME], requests_pathname_prefix='/dash_sli/' )
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUMEN, dbc.icons.FONT_AWESOME], requests_pathname_prefix='/dash_exponencial/' )
 server = app.server
 
-cabecalho = html.H1("Modelo SLI",className="bg-primary text-white p-2 mb-4")
+cabecalho = html.H1("Modelo de Crescimento Exponencial",className="bg-primary text-white p-2 mb-4")
 
 descricao = dcc.Markdown(
     '''
