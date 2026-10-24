@@ -498,13 +498,13 @@ cards_metricas = dbc.Row(
             ),
             width=6, sm=6, lg=3, className="mb-2"
         ),
-        # KPI 4: Limiar / Extinção
+        # KPI 4: Limiar / Extinção / Expansão (Dinâmico)
         dbc.Col(
             html.Div(
                 [
                     html.Div(
                         [
-                            html.Div("Limiar Crítico / Extinção", className="kpi-title"),
+                            html.Div("Expansão / Extinção", id="kpi_thresh_title", className="kpi-title"),
                             html.Div(id="kpi_thresh_val", className="kpi-value"),
                             html.Div(id="kpi_thresh_sub", className="kpi-subtitle"),
                             html.I(id="kpi_thresh_icon", className="fa-solid fa-rocket kpi-icon"),
@@ -671,8 +671,10 @@ def update_badges(a_val, b_val, c_val, n0_val, t_max_val):
         Output("kpi_kin_sub", "children"),
         Output("kpi_pop_val", "children"),
         Output("kpi_pop_sub", "children"),
+        Output("kpi_thresh_title", "children"),
         Output("kpi_thresh_val", "children"),
         Output("kpi_thresh_sub", "children"),
+        Output("kpi_thresh_card", "className"),
         Output("kpi_thresh_icon", "className"),
         Output("population_chart", "figure"),
     ],
@@ -776,25 +778,34 @@ def simular_e_renderizar(a_val, b_val, c_val, n0_val, t_max_val, modo_grafico, e
         else:
             kpi_pop_sub = f"{sinal_var}{var_pct:,.1f}% em relação a N₀".replace(",", "X").replace(".", ",").replace("X", ".")
 
-    # 4. Limiar Crítico / Extinção
-    if r < -1e-5:
+    # 4. Limiar Crítico / Extinção / Expansão (Contextualizado ao sinal de r)
+    if r > 1e-5:
+        # Quando o crescimento é positivo: NÃO HÁ EXTINÇÃO. Exibimos a métrica de expansão (10x N0)
+        t_10x = np.log(10.0) / r
+        kpi_thresh_title = "Expansão (10× N₀)"
+        kpi_thresh_val = f"{t_10x:.2f} anos"
+        kpi_thresh_sub = "Tempo para decuplicar (10× o tamanho inicial)"
+        kpi_thresh_card_class = "kpi-card kpi-threshold"
+        kpi_thresh_icon = "fa-solid fa-rocket kpi-icon"
+    elif r < -1e-5:
+        # Quando o crescimento é negativo: HÁ RISCO REAL DE EXTINÇÃO (N < 1)
+        kpi_thresh_title = "Tempo até a Extinção"
+        kpi_thresh_card_class = "kpi-card kpi-decay"
         kpi_thresh_icon = "fa-solid fa-skull-crossbones kpi-icon"
         if n0 > 1.0:
             t_ext = np.log(n0) / abs(r)
             kpi_thresh_val = f"{t_ext:.2f} anos"
-            kpi_thresh_sub = f"Tempo até N < 1 indivíduo (extinção)"
+            kpi_thresh_sub = "Tempo até restar menos de 1 indivíduo (N < 1)"
         else:
             kpi_thresh_val = "< 1 ano"
-            kpi_thresh_sub = "N₀ já está no limiar crítico de extinção"
-    elif r > 1e-5:
-        kpi_thresh_icon = "fa-solid fa-rocket kpi-icon"
-        t_10x = np.log(10.0) / r
-        kpi_thresh_val = f"{t_10x:.2f} anos"
-        kpi_thresh_sub = "Tempo para decuplicar (10× o N₀)"
+            kpi_thresh_sub = "N₀ já está no limiar crítico de extinção (N ≤ 1)"
     else:
+        # População em equilíbrio estático neutro (r = 0)
+        kpi_thresh_title = "Equilíbrio Demográfico"
+        kpi_thresh_val = "Estável"
+        kpi_thresh_sub = "Equilíbrio perpétuo (dN/dt = 0, sem extinção)"
+        kpi_thresh_card_class = "kpi-card kpi-equilibrium"
         kpi_thresh_icon = "fa-solid fa-scale-balanced kpi-icon"
-        kpi_thresh_val = "Inalterado"
-        kpi_thresh_sub = "Equilíbrio perpétuo (dN/dt = 0)"
 
     # ==========================
     # CONSTRUÇÃO DO GRÁFICO PLOTLY
@@ -826,17 +837,28 @@ def simular_e_renderizar(a_val, b_val, c_val, n0_val, t_max_val, modo_grafico, e
 
     # Elementos de referência para População N(t)
     if modo_grafico == "pop":
-        # 1. Linha de Extinção (N = 1 indivíduo)
+        # 1. Linha de Extinção (N = 1 indivíduo) - exibida com destaque apenas quando em declínio
         if mostrar_extincao:
-            fig.add_hline(
-                y=1.0,
-                line_dash="dot",
-                line_color="#dc2626",
-                line_width=1.5,
-                annotation_text="<b>Limiar de Extinção (N = 1)</b>",
-                annotation_position="bottom right",
-                annotation_font=dict(size=10, color="#dc2626")
-            )
+            if r < -1e-5:
+                fig.add_hline(
+                    y=1.0,
+                    line_dash="dot",
+                    line_color="#dc2626",
+                    line_width=1.5,
+                    annotation_text="<b>Limiar de Extinção (N = 1)</b>",
+                    annotation_position="bottom right",
+                    annotation_font=dict(size=10, color="#dc2626")
+                )
+            elif n0 <= 1.0:
+                fig.add_hline(
+                    y=1.0,
+                    line_dash="dot",
+                    line_color="#94a3b8",
+                    line_width=1.0,
+                    annotation_text="Nível Inicial (N₀ = 1)",
+                    annotation_position="bottom right",
+                    annotation_font=dict(size=9, color="#64748b")
+                )
 
         # 2. Marcador de Extinção no gráfico se r < 0 e t_ext <= t_end
         if r < -1e-5 and n0 > 1.0:
@@ -976,7 +998,8 @@ def simular_e_renderizar(a_val, b_val, c_val, n0_val, t_max_val, modo_grafico, e
         kpi_r_val, kpi_r_sub, kpi_r_card_class,
         kpi_kin_val, kpi_kin_sub,
         kpi_pop_val, kpi_pop_sub,
-        kpi_thresh_val, kpi_thresh_sub, kpi_thresh_icon,
+        kpi_thresh_title, kpi_thresh_val, kpi_thresh_sub,
+        kpi_thresh_card_class, kpi_thresh_icon,
         fig
     )
 
