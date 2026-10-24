@@ -128,7 +128,6 @@ Em um gráfico onde o eixo das ordenadas está em escala logarítmica ($\ln$ ou 
 
 ## 🚀 Principais Funcionalidades
 
-- **Identidade Visual Moderna:** Tema Bootstrap Lumen e layout responsivo com cabeçalho em degradê esmeralda/verde.
 - **Painel de Controles com Badges:** Sliders interativos com atualização em tempo real para $a$, $b$, $c$, $N_0$ e $t_{\max}$.
 - **Botões de Preset para $N_0$:** Seletores rápidos de população inicial (`1`, `10`, `100`, `1.000`, `10.000`) para agilizar os testes dos exercícios.
 - **4 Cards de Métricas em Tempo Real (KPIs):**
