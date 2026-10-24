@@ -75,7 +75,7 @@ cabecalho = html.Div(
             [
                 html.H1(
                     [
-                        html.I(className="fa-solid fa-arrow-trend-up me-2"),
+                        html.I(className="fa-solid fa-chart-line me-2"),
                         "Modelo de Crescimento Exponencial de Populações"
                     ],
                     className="display-6 mb-1"
@@ -258,7 +258,7 @@ ajuste_parametros_demo = html.Div(
     [
         html.Div(
             [
-                html.I(className="fa-solid fa-dna me-2 text-success"),
+                html.I(className="fa-solid fa-sliders me-2 text-primary"),
                 "Parâmetros Demográficos"
             ],
             className="card-header"
@@ -284,7 +284,7 @@ ajuste_parametros_demo = html.Div(
             [
                 html.Div([
                     dbc.Label(dcc.Markdown(r'Taxa de mortalidade natural ($$b$$):', mathjax=True), className="mb-0"),
-                    html.Span(id="badge_b", className="slider-val-badge badge-danger")
+                    html.Span(id="badge_b", className="slider-val-badge bg-danger text-white")
                 ], className="slider-label"),
                 dcc.Slider(
                     id="b",
@@ -301,7 +301,7 @@ ajuste_parametros_demo = html.Div(
             [
                 html.Div([
                     dbc.Label(dcc.Markdown(r'Mortalidade adicional / caça ($$c$$):', mathjax=True), className="mb-0"),
-                    html.Span(id="badge_c", className="slider-val-badge badge-warning")
+                    html.Span(id="badge_c", className="slider-val-badge bg-info text-white")
                 ], className="slider-label"),
                 dcc.Slider(
                     id="c",
@@ -322,7 +322,7 @@ ajuste_condicoes = html.Div(
     [
         html.Div(
             [
-                html.I(className="fa-solid fa-users me-2 text-primary"),
+                html.I(className="fa-solid fa-users me-2 text-success"),
                 "Condições Iniciais e Horizonte"
             ],
             className="card-header"
@@ -331,7 +331,7 @@ ajuste_condicoes = html.Div(
             [
                 html.Div([
                     dbc.Label(dcc.Markdown(r'População inicial ($$N_0$$):', mathjax=True), className="mb-0"),
-                    html.Span(id="badge_n0", className="slider-val-badge badge-info")
+                    html.Span(id="badge_n0", className="slider-val-badge")
                 ], className="slider-label"),
                 # Botões rápidos de preset para os valores dos exercícios
                 html.Div(
@@ -359,7 +359,7 @@ ajuste_condicoes = html.Div(
             [
                 html.Div([
                     dbc.Label("Horizonte de Tempo (anos):", className="mb-0"),
-                    html.Span(id="badge_t_max", className="slider-val-badge badge-neutral")
+                    html.Span(id="badge_t_max", className="slider-val-badge")
                 ], className="slider-label"),
                 dcc.Slider(
                     id="t_max",
@@ -380,7 +380,7 @@ ajuste_opcoes_grafico = html.Div(
     [
         html.Div(
             [
-                html.I(className="fa-solid fa-sliders me-2 text-secondary"),
+                html.I(className="fa-solid fa-gear me-2 text-info"),
                 "Opções de Visualização e Referências"
             ],
             className="card-header"
@@ -458,7 +458,7 @@ cards_metricas = dbc.Row(
                     )
                 ],
                 id="kpi_r_card",
-                className="kpi-card kpi-growth"
+                className="kpi-card kpi-alive"
             ),
             width=6, sm=6, lg=3, className="mb-2"
         ),
@@ -476,7 +476,7 @@ cards_metricas = dbc.Row(
                         className="kpi-card-inner"
                     )
                 ],
-                className="kpi-card kpi-kinetic"
+                className="kpi-card kpi-peak"
             ),
             width=6, sm=6, lg=3, className="mb-2"
         ),
@@ -494,7 +494,7 @@ cards_metricas = dbc.Row(
                         className="kpi-card-inner"
                     )
                 ],
-                className="kpi-card kpi-population"
+                className="kpi-card kpi-vaccine"
             ),
             width=6, sm=6, lg=3, className="mb-2"
         ),
@@ -513,7 +513,7 @@ cards_metricas = dbc.Row(
                     )
                 ],
                 id="kpi_thresh_card",
-                className="kpi-card kpi-threshold"
+                className="kpi-card kpi-deaths"
             ),
             width=6, sm=6, lg=3, className="mb-2"
         ),
@@ -552,7 +552,7 @@ app.layout = dbc.Container(
                                     [
                                         html.Div(
                                             [
-                                                html.I(className="fa-solid fa-chart-area me-2 text-success"),
+                                                html.I(className="fa-solid fa-chart-line me-2 text-primary"),
                                                 html.Span(
                                                     "Dinâmica Temporal do Crescimento Exponencial",
                                                     id="graph_title_span",
@@ -590,7 +590,7 @@ app.layout = dbc.Container(
             html.Div(
                 [
                     html.Span("Modelo de Crescimento Exponencial de Populações — Baseado no modelo malthusiano clássico. ", className="text-muted"),
-                    html.A("Código-fonte no GitHub", href="https://github.com/fferreir/dash_exponencial", target="_blank", className="text-decoration-none text-success fw-semibold"),
+                    html.A("Código-fonte no GitHub", href="https://github.com/fferreir/dash_exponencial", target="_blank", className="text-decoration-none text-primary fw-semibold"),
                 ],
                 className="text-center py-3 border-top mt-4 small"
             )
@@ -737,13 +737,13 @@ def simular_e_renderizar(a_val, b_val, c_val, n0_val, t_max_val, modo_grafico, e
     kpi_r_val = f"{sinal}{r:.3f} ano⁻¹"
     if r > 1e-5:
         kpi_r_sub = "Crescimento Exponencial (a > b + c)"
-        kpi_r_card_class = "kpi-card kpi-growth"
+        kpi_r_card_class = "kpi-card kpi-alive"
     elif r < -1e-5:
         kpi_r_sub = "Decaimento / Risco de Extinção (a < b + c)"
-        kpi_r_card_class = "kpi-card kpi-decay"
+        kpi_r_card_class = "kpi-card kpi-deaths"
     else:
         kpi_r_sub = "Equilíbrio Demográfico Neutro (a = b + c)"
-        kpi_r_card_class = "kpi-card kpi-equilibrium"
+        kpi_r_card_class = "kpi-card kpi-vaccine"
         
     # 2. Cinética Populacional (td ou t1/2)
     if r > 1e-5:
@@ -785,12 +785,12 @@ def simular_e_renderizar(a_val, b_val, c_val, n0_val, t_max_val, modo_grafico, e
         kpi_thresh_title = "Expansão (10× N₀)"
         kpi_thresh_val = f"{t_10x:.2f} anos"
         kpi_thresh_sub = "Tempo para decuplicar (10× o tamanho inicial)"
-        kpi_thresh_card_class = "kpi-card kpi-threshold"
+        kpi_thresh_card_class = "kpi-card kpi-vaccine"
         kpi_thresh_icon = "fa-solid fa-rocket kpi-icon"
     elif r < -1e-5:
         # Quando o crescimento é negativo: HÁ RISCO REAL DE EXTINÇÃO (N < 1)
         kpi_thresh_title = "Tempo até a Extinção"
-        kpi_thresh_card_class = "kpi-card kpi-decay"
+        kpi_thresh_card_class = "kpi-card kpi-deaths"
         kpi_thresh_icon = "fa-solid fa-skull-crossbones kpi-icon"
         if n0 > 1.0:
             t_ext = np.log(n0) / abs(r)
@@ -804,7 +804,7 @@ def simular_e_renderizar(a_val, b_val, c_val, n0_val, t_max_val, modo_grafico, e
         kpi_thresh_title = "Equilíbrio Demográfico"
         kpi_thresh_val = "Estável"
         kpi_thresh_sub = "Equilíbrio perpétuo (dN/dt = 0, sem extinção)"
-        kpi_thresh_card_class = "kpi-card kpi-equilibrium"
+        kpi_thresh_card_class = "kpi-card kpi-peak"
         kpi_thresh_icon = "fa-solid fa-scale-balanced kpi-icon"
 
     # ==========================
@@ -816,13 +816,13 @@ def simular_e_renderizar(a_val, b_val, c_val, n0_val, t_max_val, modo_grafico, e
     if modo_grafico == "pop":
         y_data = n_analitica
         trace_name = "População N(t)"
-        line_color = "#059669" if r >= 0 else "#dc2626"
+        line_color = "#16a34a" if r >= 0 else "#dc2626"
         y_axis_title = "Número de Indivíduos (N)"
         hover_template = "Ano: %{x:.2f}<br>População: %{y:,.2f}<extra></extra>"
     else:
         y_data = dn_dt
         trace_name = "Taxa Absoluta dN/dt"
-        line_color = "#2563eb" if r >= 0 else "#b91c1c"
+        line_color = "#2563eb" if r >= 0 else "#dc2626"
         y_axis_title = "Taxa de Variação dN/dt (indivíduos / ano)"
         hover_template = "Ano: %{x:.2f}<br>dN/dt: %{y:,.2f} ind./ano<extra></extra>"
 
@@ -872,7 +872,7 @@ def simular_e_renderizar(a_val, b_val, c_val, n0_val, t_max_val, modo_grafico, e
                     marker=dict(color="#dc2626", size=10, symbol="x"),
                     text=[f"Extinção ({t_ext:.1f} anos)"],
                     textposition="top right",
-                    textfont=dict(size=10, color="#b91c1c"),
+                    textfont=dict(size=10, color="#dc2626"),
                     hovertemplate="Extinção: N=1 em %{x:.2f} anos<extra></extra>"
                 ))
 
@@ -887,10 +887,10 @@ def simular_e_renderizar(a_val, b_val, c_val, n0_val, t_max_val, modo_grafico, e
                         y=[n_dup],
                         name="Duplicação (2× N₀)",
                         mode="markers+text",
-                        marker=dict(color="#047857", size=9, symbol="diamond"),
+                        marker=dict(color="#16a34a", size=9, symbol="diamond"),
                         text=[f"2× N₀ ({td:.1f}a, {n_dup:,.0f})"],
                         textposition="bottom right",
-                        textfont=dict(size=10, color="#047857"),
+                        textfont=dict(size=10, color="#16a34a"),
                         hovertemplate="Duplicação: N=%{y:,.1f} em %{x:.2f} anos<extra></extra>"
                     ))
             elif r < -1e-5:

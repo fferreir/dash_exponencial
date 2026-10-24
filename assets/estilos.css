@@ -1,5 +1,4 @@
-/* Estilos customizados para o Dashboard de Crescimento Exponencial */
-/* Alinhado à identidade visual, elegância e organização do dash-sir */
+/* Estilos customizados para o Dashboard - Padrão e paleta idênticos ao dash-sir */
 
 body {
     background-color: #f8f9fa;
@@ -7,9 +6,9 @@ body {
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-/* Header principal com degradê elegante e sombras suaves */
+/* Header principal - Degradê azul real idêntico ao dash-sir */
 .hero-header {
-    background: linear-gradient(135deg, #065f46 0%, #059669 45%, #10b981 100%);
+    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #3b82f6 100%);
     color: #ffffff;
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -56,7 +55,7 @@ body {
 }
 
 .kpi-value {
-    font-size: 1.55rem;
+    font-size: 1.6rem;
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 0.15rem;
@@ -76,44 +75,32 @@ body {
     opacity: 0.18;
 }
 
-/* Variantes de status dos KPIs */
-.kpi-growth {
-    border-left: 4px solid #10b981;
+/* Variantes de cores de cards idênticas ao dash-sir */
+.kpi-vaccine {
+    border-left: 4px solid #06b6d4;
 }
-.kpi-growth .kpi-value { color: #047857; }
-.kpi-growth .kpi-icon { color: #047857; }
+.kpi-vaccine .kpi-value { color: #0891b2; }
+.kpi-vaccine .kpi-icon { color: #0891b2; }
 
-.kpi-decay {
+.kpi-deaths {
     border-left: 4px solid #ef4444;
 }
-.kpi-decay .kpi-value { color: #b91c1c; }
-.kpi-decay .kpi-icon { color: #b91c1c; }
+.kpi-deaths .kpi-value { color: #dc2626; }
+.kpi-deaths .kpi-icon { color: #dc2626; }
 
-.kpi-equilibrium {
-    border-left: 4px solid #3b82f6;
-}
-.kpi-equilibrium .kpi-value { color: #1d4ed8; }
-.kpi-equilibrium .kpi-icon { color: #1d4ed8; }
-
-.kpi-kinetic {
-    border-left: 4px solid #0891b2;
-}
-.kpi-kinetic .kpi-value { color: #0e7490; }
-.kpi-kinetic .kpi-icon { color: #0e7490; }
-
-.kpi-population {
-    border-left: 4px solid #8b5cf6;
-}
-.kpi-population .kpi-value { color: #6d28d9; }
-.kpi-population .kpi-icon { color: #6d28d9; }
-
-.kpi-threshold {
+.kpi-peak {
     border-left: 4px solid #f59e0b;
 }
-.kpi-threshold .kpi-value { color: #b45309; }
-.kpi-threshold .kpi-icon { color: #b45309; }
+.kpi-peak .kpi-value { color: #d97706; }
+.kpi-peak .kpi-icon { color: #d97706; }
 
-/* Painéis de controle */
+.kpi-alive {
+    border-left: 4px solid #10b981;
+}
+.kpi-alive .kpi-value { color: #059669; }
+.kpi-alive .kpi-icon { color: #059669; }
+
+/* Paineis de controle */
 .card-control {
     background-color: #ffffff;
     border: 1px solid #e5e7eb;
@@ -151,43 +138,23 @@ body {
 
 .slider-val-badge {
     font-size: 0.75rem;
-    padding: 0.15rem 0.45rem;
+    padding: 0.15rem 0.4rem;
     border-radius: 0.25rem;
-    background-color: #d1fae5;
-    color: #065f46;
+    background-color: #e0f2fe;
+    color: #0369a1;
     font-weight: 600;
 }
 
-.slider-val-badge.badge-danger {
-    background-color: #fee2e2;
-    color: #b91c1c;
-}
-
-.slider-val-badge.badge-neutral {
-    background-color: #f3f4f6;
-    color: #374151;
-}
-
-.slider-val-badge.badge-warning {
-    background-color: #fef3c7;
-    color: #92400e;
-}
-
-.slider-val-badge.badge-info {
-    background-color: #e0f2fe;
-    color: #0369a1;
-}
-
-/* Card do Gráfico */
+/* Gráfico */
 .graph-card {
     background: #ffffff;
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-    padding: 0.75rem;
+    padding: 0.5rem;
 }
 
-/* Accordion de documentação */
+/* Accordion idêntico ao dash-sir */
 .accordion-button {
     font-weight: 600;
     font-size: 0.88rem;
@@ -195,16 +162,16 @@ body {
 }
 
 .accordion-button:not(.collapsed) {
-    background-color: #ecfdf5;
-    color: #047857;
+    background-color: #eff6ff;
+    color: #1d4ed8;
 }
 
 .accordion-body {
     font-size: 0.85rem;
-    line-height: 1.55;
+    line-height: 1.5;
 }
 
-/* Tabelas e botões rápidos */
+/* Tabelas e botões */
 .table-data {
     font-size: 0.82rem;
 }
