@@ -149,9 +149,19 @@ Em um gráfico onde o eixo das ordenadas está em escala logarítmica ($\ln$ ou 
 
 ```text
 dash_exponencial/
-├── app.py              # Aplicação principal Dash, callbacks, simulação e visualização
+├── app.py              # Ponto de entrada leve da aplicação Dash e servidor Flask
 ├── assets/
-│   └── estilos.css     # Folha de estilos customizada (design system alinhado ao dash-sir)
+│   └── estilos.css     # Folha de estilos customizada (design system moderno e responsivo)
+├── src/
+│   ├── __init__.py     # Inicializador do pacote src
+│   ├── model.py        # EDO malthusiana, solução analítica e métricas demográficas puras
+│   ├── layout.py       # Componentes visuais, cards de KPIs, controles e accordion teórico
+│   └── callbacks.py    # Registro de callbacks, reatividade e geração de gráficos Plotly
+├── tests/
+│   ├── __init__.py     # Inicializador do pacote tests
+│   ├── test_model.py   # Testes unitários para cálculos matemáticos e cinéticos
+│   └── test_app.py     # Testes de integração e inicialização da aplicação Dash
+├── pytest.ini          # Configuração da suíte de testes com pytest
 ├── requirements.txt    # Dependências do projeto
 ├── README.md           # Documentação completa
 └── LICENSE             # Licença GNU GPLv3
@@ -183,7 +193,12 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Executar a aplicação
+### 3. Executar os testes automatizados
+```bash
+pytest
+```
+
+### 4. Executar a aplicação
 ```bash
 python app.py
 ```
