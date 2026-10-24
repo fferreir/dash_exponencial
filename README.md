@@ -7,8 +7,6 @@
 
 Aplicação web interativa desenvolvida com **Dash**, **Plotly**, **Bootstrap** e **SciPy** para simulação, exploração teórica e análise demográfica baseadas no clássico **Modelo de Crescimento Exponencial de Malthus (1798)**. Permite investigar o impacto de taxas de natalidade, mortalidade natural e mortalidade adicional (ex.: caça predatória ou colheita) na evolução de populações biológicas, com cálculo em tempo real de tempos de duplicação, meia-vida e tempo até a extinção.
 
-Inspirado no padrão de arquitetura, identidade visual e organização do [dash-sir](https://github.com/fferreir/dash-sir).
-
 ---
 
 ## 📌 Sumário
@@ -130,7 +128,7 @@ Em um gráfico onde o eixo das ordenadas está em escala logarítmica ($\ln$ ou 
 
 ## 🚀 Principais Funcionalidades
 
-- **Identidade Visual Moderna:** Estilo consistente com [dash-sir](https://github.com/fferreir/dash-sir), tema Bootstrap Lumen e layout responsivo com cabeçalho em degradê esmeralda/verde.
+- **Identidade Visual Moderna:** Tema Bootstrap Lumen e layout responsivo com cabeçalho em degradê esmeralda/verde.
 - **Painel de Controles com Badges:** Sliders interativos com atualização em tempo real para $a$, $b$, $c$, $N_0$ e $t_{\max}$.
 - **Botões de Preset para $N_0$:** Seletores rápidos de população inicial (`1`, `10`, `100`, `1.000`, `10.000`) para agilizar os testes dos exercícios.
 - **4 Cards de Métricas em Tempo Real (KPIs):**
